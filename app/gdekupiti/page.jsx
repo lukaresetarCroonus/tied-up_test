@@ -65,7 +65,7 @@ const Gdekupiti = () => {
                   Hand made festival - Beograd
                 </h5>
                 <p className="text-center font-light hover:underline">
-                  Knez Mihailova 6, Beograd
+                  Knez Mihailova 36, Beograd
                 </p>
               </div>
             </Link>
