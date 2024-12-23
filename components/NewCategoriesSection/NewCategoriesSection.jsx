@@ -32,7 +32,7 @@ const NewCategoriesSections = ({ categories }) => {
                 className="object-cover hover:scale-110 transition-all duration-700 ease-in-out"
               />
             )}
-            <div className="absolute bottom-0 left-0 w-full h-14 bg-black/40 z-10 flex items-center pl-6 pt-2">
+            <div className="absolute bottom-0 left-0 w-full h-18 bg-black/40 z-10 flex items-center pl-6 pt-2">
               <h3 className="text-white text-center text-[20px] md:text-[28px] font-bold">
                 {category?.basic_data?.name}
               </h3>
