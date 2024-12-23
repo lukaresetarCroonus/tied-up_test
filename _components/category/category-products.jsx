@@ -150,25 +150,22 @@ export const CategoryProducts = ({
   }, [tempSelectedFilters?.length]);
 
   const RenderItems = () => {
-    return (data?.items || [])?.map(({ id }) => {
-      return (
-        <Suspense
-          key={id}
-          fallback={
-            <div
-              className={`aspect-square w-full h-full bg-slate-200 animate-pulse`}
-            />
-          }
-        >
+    return (
+      <Suspense
+        fallback={
+          <div className="aspect-square w-full h-full bg-slate-200 animate-pulse" />
+        }
+      >
+        {(data?.items || [])?.map(({ id }) => (
           <Thumb
             key={id}
             id={id}
             categoryId={slug}
             refreshWishlist={() => {}}
           />
-        </Suspense>
-      );
-    });
+        ))}
+      </Suspense>
+    );
   };
 
   return (
