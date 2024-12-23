@@ -11,6 +11,22 @@ import { useIsMobile } from "@/hooks/croonus.hooks";
 import { icons } from "@/_lib/icons";
 
 const RecommendedProducts = ({ recommendedProducts, action4 }) => {
+  // console.log('rec',recommendedProducts);
+
+  function removeDuplicateCategories(arr) {
+    const seen = new Set();  // Create a Set to keep track of seen category names
+    return arr.filter((obj) => {
+      // Check if the category name has already been seen
+      const categoryName = obj.categories[0]?.name;
+      if (categoryName && !seen.has(categoryName)) {
+        seen.add(categoryName);  // Add the name to the Set if it's unique
+        return true;  // Keep this object
+      }
+      return false;  // Filter out duplicates
+    });
+  }
+
+  const [recProdFilt,setrecProdFilt] = useState([]);
   const [products, setProducts] = useState(
     recommendedProducts?.filter(
       (item) =>
@@ -18,7 +34,6 @@ const RecommendedProducts = ({ recommendedProducts, action4 }) => {
         recommendedProducts?.[0]?.categories?.[0]?.id
     )
   );
-
   const [selectedCategory, setSelectedCategory] = useState(
     products?.[0]?.categories?.[0]?.id
   );
@@ -29,6 +44,11 @@ const RecommendedProducts = ({ recommendedProducts, action4 }) => {
   useEffect(() => {
     Aos.init();
   });
+
+  useEffect(() => {
+    const uniqueItems = removeDuplicateCategories(recommendedProducts);
+    setrecProdFilt(uniqueItems);
+  },[recommendedProducts])
 
   const is_mobile = useIsMobile();
 
@@ -56,7 +76,7 @@ const RecommendedProducts = ({ recommendedProducts, action4 }) => {
             onChange={(e) => handleCategoryChange(e.target.value)}
           >
             <option value={"all_categories"}>Sve kategorije</option>
-            {(recommendedProducts ?? [])?.slice(0, 8)?.map((item) => {
+            {(recProdFilt ?? [])?.slice(0, 8)?.map((item) => {
               if (item?.id) {
                 const { categories } = item;
                 let category = {
@@ -75,7 +95,7 @@ const RecommendedProducts = ({ recommendedProducts, action4 }) => {
       case false:
         return (
           <div className={`flex items-center gap-3`}>
-            {(recommendedProducts ?? [])?.slice(0, 8)?.map((item) => {
+            {(recProdFilt ?? [])?.slice(0, 8)?.map((item) => {
               if (item?.id) {
                 const { categories } = item;
                 let category = {
