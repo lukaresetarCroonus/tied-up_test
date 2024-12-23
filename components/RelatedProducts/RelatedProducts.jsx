@@ -3,11 +3,11 @@ import { Suspense, useState } from "react";
 import { Thumb } from "@/_components/shared";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay } from "swiper";
-import { useSuspenseQuery } from "@tanstack/react-query";
+import { useQuery } from "@tanstack/react-query";
 import { list } from "@/app/api/api";
 
 const RelatedProducts = ({ id }) => {
-  const { data: relatedProducts } = useSuspenseQuery({
+  const { data: relatedProducts } = useQuery({
     queryKey: ["relatedProducts"],
     queryFn: async () => {
       return await list(`/product-details/recommended/${id}`)?.then(
