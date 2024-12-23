@@ -7,7 +7,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { list } from "@/app/api/api";
 
 const RelatedProducts = ({ id }) => {
-  const { data: relatedProducts } = useSuspenseQuery({
+  const { data: relatedProducts } = useQuery({
     queryKey: ["relatedProducts"],
     queryFn: async () => {
       return await list(`/product-details/recommended/${id}`)?.then(
@@ -20,7 +20,7 @@ const RelatedProducts = ({ id }) => {
 
   if (relatedProducts?.length > 0) {
     return (
-      <Suspense>
+      <>
         <div className="flex justify-between w-full items-center">
           <h5 className="text-[1.5rem] mb-3 font-bold max-md:text-[1.1rem] ">
             Možda će Vas zanimati
@@ -69,7 +69,7 @@ const RelatedProducts = ({ id }) => {
               );
             })}
         </Swiper>
-      </Suspense>
+      </>
     );
   }
 };
