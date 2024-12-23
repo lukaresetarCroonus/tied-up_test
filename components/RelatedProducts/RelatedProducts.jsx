@@ -7,7 +7,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { list } from "@/app/api/api";
 
 const RelatedProducts = ({ id }) => {
-  const { data: relatedProducts } = useQuery({
+  const { data: relatedProducts } = useSuspenseQuery({
     queryKey: ["relatedProducts"],
     queryFn: async () => {
       return await list(`/product-details/recommended/${id}`)?.then(
