@@ -6,7 +6,6 @@ import Link from "next/link";
 import Slider from "@mui/material/Slider";
 
 const FilterIn = ({ filter, onChange = () => {}, selected }) => {
-  // console.log('f',filter);
   const [filterNumber, setFilterNumber] = useState(3);
   const numFiltersLoaded = Math.min(filterNumber, filter?.params?.items.length);
   const allFiltersLoaded = numFiltersLoaded === filter?.params?.items.length;
@@ -15,10 +14,9 @@ const FilterIn = ({ filter, onChange = () => {}, selected }) => {
   };
   const checkedChanged = ({ target }) => {
     if (target.checked) {
-      console.log('a')
       if (!selected.includes(target.value)) {
         const tmp = [...selected, target.value];
-        console.log('b')
+
         onChange({
           column: filter?.params?.use_field
             ? filter[filter?.params?.use_field]
@@ -27,7 +25,6 @@ const FilterIn = ({ filter, onChange = () => {}, selected }) => {
         });
       }
     } else {
-      console.log('d')
       const tmp = [...selected];
       var index = tmp.indexOf(target.value);
       if (index !== -1) {
@@ -192,6 +189,7 @@ const Filter = ({
     }
     setPage(1);
     setSelectedFilters([...tmp]);
+    setTempSelectedFilters([...tmp]);
     setLastSelectedFilterKey(data.column);
     setChangeFilters(true);
   };

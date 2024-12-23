@@ -154,8 +154,7 @@ const FiltersMobile = ({
           <button
             className={`flex-1`}
             onClick={() => {
-              console.log('tsf',tempSelectedFilters)
-              // setSelectedFilters(tempSelectedFilters);
+              setSelectedFilters(tempSelectedFilters);
               setFilterOpen(false);
             }}
           >
