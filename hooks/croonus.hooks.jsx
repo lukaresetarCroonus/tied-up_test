@@ -670,7 +670,7 @@ export const useRelatedProducts = ({ slug }) => {
 
 //hook za dobijanje related artikala na detaljnoj strani
 export const useUpsell = ({ slug }) => {
-  return useSuspenseQuery({
+  return useQuery({
     queryKey: ["productDeclaration", { slug: slug }],
     queryFn: async () => {
       return await LIST(`/product-details/up-sell/${slug}`, {
