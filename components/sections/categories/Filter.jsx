@@ -38,10 +38,10 @@ const FilterIn = ({ filter, onChange = () => {}, selected }) => {
     }
   };
   return (
-    <div className="h-48 overflow-y-auto sm:h-auto sm:overflow-y-visible">
+    <div className="h-24 overflow-y-auto sm:h-auto sm:overflow-y-visible">
       {(filter?.params?.items ?? []).map((item) => (
         <div key={item.id}>
-          <div className="mt-2 flex flex-row items-center gap-2 pl-4 text-[0.775rem]">
+          <div className=" flex flex-row items-center gap-2 pl-4 text-[0.775rem]">
             <input
               type="checkbox"
               className="h-4 w-4 rounded-sm bg-[#e4e4e4] text-black border-[#f2f2f2]  focus:ring-0"
