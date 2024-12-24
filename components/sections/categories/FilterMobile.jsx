@@ -25,6 +25,10 @@ const FiltersMobile = ({
   const [activeSort, setActiveSort] = useState({ label: "" });
   const [sortingActive, setSortingActive] = useState(false);
 
+  useEffect(() =>{
+    document.body.style.overflow = 'auto';
+  },[])
+
   return (
     <>
       <div className="h-full flex flex-col px-[0.7rem]">
@@ -144,6 +148,8 @@ const FiltersMobile = ({
             onClick={() => {
               setTempSelectedFilters([]);
               setSelectedFilters([]);
+              setActiveSort({ label: "" })
+              setSort({ field: "", direction: "" })
               setFilterOpen(false);
             }}
           >

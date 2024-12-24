@@ -149,6 +149,20 @@ export const CategoryProducts = ({
     });
   }, [tempSelectedFilters?.length]);
 
+  useEffect(() => {
+    // Add overflow-hidden class to the body when filterOpen is true
+    if (filterOpen) {
+      document.body.style.overflow = 'hidden'; // This disables scrolling
+    } else {
+      document.body.style.overflow = 'auto'; // This restores scrolling
+    }
+
+    // Clean up on component unmount
+    return () => {
+      document.body.style.overflow = 'auto'; // Ensure scroll is enabled on unmount
+    };
+  }, [filterOpen]); 
+
   const RenderItems = () => {
     return (data?.items || [])?.map(({ id }) => {
       return (
