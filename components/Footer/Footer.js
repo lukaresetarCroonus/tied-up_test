@@ -153,7 +153,7 @@ const Footer = () => {
         </div>
 
     {/* Izdvajamo section */}
-    <div className="flex flex-col justify-start ml-10">
+    <div className="flex flex-col justify-start ml-28">
       <h3 className="text-[1rem] font-semibold">Izdvajamo</h3>
       <div className="flex flex-col items-start text-[17px] font-extralight mt-4">
         <p>
@@ -365,7 +365,7 @@ const Footer = () => {
 
         {/* ====== korisnicka podrska ====== */}
 
-        <div className="max-md:hidden col-span-2 text-white flex flex-col md:justify-self-end justify-start mt-6">
+        <div className="max-md:hidden col-span-2 text-white flex flex-col md:justify-self-end justify-start mt-6 mr-10">
           <div className="flex  items-start">
               <div>
             <h3 className="text-[1rem] font-semibold">Korisnička podrška</h3>

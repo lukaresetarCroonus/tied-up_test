@@ -225,9 +225,10 @@ const NavigationMobile = () => {
       <div
         className={
           menuOpen
-            ? `translate-x-0 flex flex-col h-screen z-[5000] w-full duration-500 transition-all fixed bg-white top-0 left-0`
+            ? `overflow-auto translate-x-0 flex flex-col h-screen z-[5000] w-full duration-500 transition-all fixed bg-white top-0 left-0`
             : `-translate-x-full flex flex-col h-screen z-[5000] w-full duration-500 transition-all fixed bg-white top-0 left-0`
         }
+       
       >
         <div className="w-[95%]  mx-auto flex items-center justify-between py-3.5">
           <Image src="/logo1.png" width={150} height={150} alt="logo" />
@@ -431,7 +432,7 @@ const NavigationMobile = () => {
               );
             })}
         </div>
-        <div className="flex flex-col mt-10 w-[95%] mx-auto gap-3">
+        <div className="flex flex-col mt-10 w-[95%] mx-auto gap-3 h-20"  >
           {landingPagesList?.items?.map((item, index) => {
             return (
               <Link

@@ -1,5 +1,6 @@
+import { useEffect, useState } from "react";
 import { toast } from "react-toastify";
-import { useEffect } from "react";
+import { useDebounce } from "@/hooks/croonus.hooks";
 
 const PlusMinusInputOne = ({
   className,
@@ -11,37 +12,45 @@ const PlusMinusInputOne = ({
   updateCart,
   id,
 }) => {
+  const [localQuantity, setLocalQuantity] = useState(quantity);  // Local state for quantity
+  const debouncedQuantity = useDebounce(localQuantity, 300); // Debounce quantity updates with a delay (500ms)
+
   const onPlus = () => {
-    if (quantity < maxAmount) {
-      setQuantity(quantity + 1);
-      updateCart({
-        id: id,
-        quantity: quantity + 1,
-        type: true,
-      });
-    }
-  };
-  const onMinus = () => {
-    if (quantity > 1 && quantity <= maxAmount) {
-      setQuantity(quantity - 1);
-      updateCart({
-        id: id,
-        quantity: quantity - 1,
-        type: true,
-      });
+    if (localQuantity < maxAmount) {
+      const newQuantity = localQuantity + 1;
+      setLocalQuantity(newQuantity);
     }
   };
 
+  const onMinus = () => {
+    if (localQuantity > 1 && localQuantity <= maxAmount) {
+      const newQuantity = localQuantity - 1;
+      setLocalQuantity(newQuantity);
+    }
+  };
+
+  // Sync the debounced quantity to the cart update
   useEffect(() => {
-    if (quantity > maxAmount && maxAmount > 0) {
-      setQuantity(maxAmount);
+    if (debouncedQuantity !== quantity) {
+      updateCart({
+        id: id,
+        quantity: debouncedQuantity,
+        type: true,
+      });
+    }
+  }, [debouncedQuantity, quantity, id, updateCart]);
+
+  // Ensure we do not set a quantity higher than maxAmount
+  useEffect(() => {
+    if (localQuantity > maxAmount && maxAmount > 0) {
+      setLocalQuantity(maxAmount);
       updateCart({
         id: id,
         quantity: maxAmount,
         message: false,
       });
     }
-  }, [quantity]);
+  }, [localQuantity, maxAmount, id, updateCart]);
 
   return (
     <div className="bg-[#fbfbfb] px-3 border max-md:h-full py-[2px] border-[#eaeaea] max-md:border-[#919191]">
@@ -56,22 +65,15 @@ const PlusMinusInputOne = ({
           maxLength="2"
           max={maxAmount}
           type="number"
-          value={quantity}
-          onChange={(e) => {
-            setQuantity(+e.target.value);
-            updateCart({
-              id: id,
-              quantity: +e.target.value,
-              type: true,
-            });
-          }}
-          className="w-12 text-center  no-spinners mx-auto flex-1 bg-[#fbfbfb] focus:border-none focus:outline-none p-0 focus:ring-0 select-none text-sm border-none text-sm"
-        ></input>
+          value={localQuantity}
+          onChange={(e) => setLocalQuantity(+e.target.value)}
+          className="w-12 text-center no-spinners mx-auto flex-1 bg-[#fbfbfb] focus:border-none focus:outline-none p-0 focus:ring-0 select-none text-sm border-none text-sm"
+        />
         <span
           className="cursor-pointer flex-1 text-lg select-none"
           onClick={onPlus}
         >
-          +{" "}
+          +
         </span>
       </div>
     </div>

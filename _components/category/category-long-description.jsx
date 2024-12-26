@@ -13,7 +13,7 @@ export const CategoryLongDescription = ({ slug }) => {
     return (
       <div className={`mt-[1.875rem] px-2 md:px-[3rem]`}>
         <div
-          className={`prose max-w-full`}
+          className={`prose font-light max-w-full`}
           dangerouslySetInnerHTML={{ __html: long_description }}
         />
       </div>
