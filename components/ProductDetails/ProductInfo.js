@@ -82,9 +82,14 @@ const ProductInfo = ({
   useEffect(() => {
     if (newURL) {
       window?.history?.replaceState(null, null, newURL);
-      setTempError(null);
     }
   }, [newURL]);
+
+  useEffect(() =>{
+    if(isAddable) {
+      setTempError(null);
+    }
+  },[isAddable])
 
   //azuriramo varijantu
   const updateProductVariant = (variant) => {
@@ -112,6 +117,7 @@ const ProductInfo = ({
   }, [selectedColor]);
 
   useEffect(() => {
+
     if (selectedProizvod !== null) {
       setProizvod(selectedProizvod);
     }
@@ -221,6 +227,7 @@ const ProductInfo = ({
 
   //hendlujemo dodavanje u korpu
   const handleAddToCart = () => {
+    console.log('t',tempError);
     switch (product?.product_type) {
       case "single":
         let is_addable = checkIsAddable(
@@ -239,7 +246,6 @@ const ProductInfo = ({
         break;
       case "variant":
         if (isAddable) {
-          setTempError(null);
           let is_addable = checkIsAddable(
             productVariant?.price,
             productVariant?.inventory

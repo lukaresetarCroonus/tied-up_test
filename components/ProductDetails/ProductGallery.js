@@ -135,7 +135,6 @@ const ProductGallery = ({
   const [newImage, setNewImage] = useState(0);
   const [swiper, setSwiper] = useState(null);
   useEffect(() => {
-    console.log('c',color);
     if (color) {
       if(proizvod) {
         const newImage = productGallery?.findIndex((item) =>
@@ -154,7 +153,6 @@ const ProductGallery = ({
     }
   }, [color]);
   useEffect(() => {
-    console.log('p',proizvod);
     if (proizvod) {
       if(color) {
         const newImage = productGallery?.findIndex((item) =>

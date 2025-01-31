@@ -57,7 +57,6 @@ export default function Variants({
       newSelected.push({ attribute_key, value_key }); // Add new option
     }
     setSelected(newSelected);
-    console.log('n',newSelected);
     handleSpecificUpdates(attribute_key, value_key);
     if(newSelected.length === variant_options.length) {
       setIsAddable(true);
