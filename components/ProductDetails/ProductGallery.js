@@ -15,6 +15,7 @@ import { convertHttpToHttps } from "@/helpers/convertHttpToHttps";
 const ProductGallery = ({
   productGallery,
   color,
+  proizvod,
   loading,
   product,
   setLoading,
@@ -68,7 +69,7 @@ const ProductGallery = ({
           onMouseLeave={() => {
             setShowMagnifier(false);
           }}
-          alt={alt}
+          alt={alt || ''}
         />
 
         <div
@@ -105,7 +106,7 @@ const ProductGallery = ({
       <SwiperSlide key={index} className="w-full !h-auto">
         <ImageMagnifier
           src={convertHttpToHttps(item?.image_data?.url)}
-          alt={item?.image_data?.descriptions?.alt}
+          alt={item?.image_data?.descriptions?.alt || ''}
           width={item?.image_data?.file_data?.width}
           height={item?.image_data?.file_data?.height}
           onClick={() => {
@@ -121,7 +122,7 @@ const ProductGallery = ({
       <SwiperSlide key={index}>
         <Image
           src={convertHttpToHttps(item?.image_data?.url)}
-          alt={item?.image_data?.descriptions?.alt}
+          alt={item?.image_data?.descriptions?.alt || ''}
           width={item?.image_data?.file_data?.width ?? 0}
           height={item?.image_data?.file_data?.height ?? 0}
           sizes={`100vw`}
@@ -131,18 +132,45 @@ const ProductGallery = ({
       </SwiperSlide>
     );
   });
-
   const [newImage, setNewImage] = useState(0);
   const [swiper, setSwiper] = useState(null);
   useEffect(() => {
+    console.log('c',color);
     if (color) {
-      const newImage = productGallery?.findIndex((item) =>
-        item?.variant_key?.includes(color)
-      );
-      setNewImage(newImage);
-      swiper?.slideTo(newImage);
+      if(proizvod) {
+        const newImage = productGallery?.findIndex((item) =>
+          item?.variant_key?.includes(proizvod) && item?.variant_key?.includes(color)
+        );
+        setNewImage(newImage);
+        swiper?.slideTo(newImage);
+      } else {
+        const newImage = productGallery?.findIndex((item) =>
+          item?.variant_key?.includes(color)
+        );
+        setNewImage(newImage);
+        swiper?.slideTo(newImage);
+      }
+
     }
   }, [color]);
+  useEffect(() => {
+    console.log('p',proizvod);
+    if (proizvod) {
+      if(color) {
+        const newImage = productGallery?.findIndex((item) =>
+          item?.variant_key?.includes(proizvod) && item?.variant_key?.includes(color)
+        );
+        setNewImage(newImage);
+        swiper?.slideTo(newImage);
+      } else {
+        const newImage = productGallery?.findIndex((item) =>
+          item?.variant_key?.includes(proizvod)
+        );
+        setNewImage(newImage);
+        swiper?.slideTo(newImage);
+      }
+    }
+  }, [proizvod]);
 
   const renderDiscountPercentage = ({
     price: {
@@ -203,7 +231,7 @@ const ProductGallery = ({
         }}
         pagination={true}
         modules={[FreeMode, Thumbs, Pagination, Navigation]}
-        initialSlide={color ? newImage : 0}
+        initialSlide={color || proizvod ? newImage : 0}
         navigation={{
           enabled: true,
           hiddenClass: "swiper-mobile-hidden",

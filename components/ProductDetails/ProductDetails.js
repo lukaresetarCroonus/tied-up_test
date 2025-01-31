@@ -30,18 +30,50 @@ const ProductDetails = ({
   const defaultGallery = filteredImages.length > 0 ?  filteredImages : productGallery;
   const [gallery, setGallery] = useState(defaultGallery);
   const [color, setColor] = useState(null);
+  const [proizvod,setProizvod] = useState(null);
 
   useEffect(() => {
     if (color !== null) {
       setGallery(filteredImages);
-      const newImage = rawGallery?.find((item) => {
-        return item?.variant_key?.includes(color);
-      });
-      if (newImage) {
-        setGallery((prev) => [newImage, ...prev]);
+      if(proizvod) {
+        const newImage = productGallery?.find((item) => 
+          item?.variant_key?.includes(proizvod) && item?.variant_key?.includes(color)
+        );
+        if (newImage) {
+          setGallery((prev) => [newImage, ...prev]);
+        }
+      } else {
+        const newImage = productGallery?.find((item) => {
+          return item?.variant_key?.includes(color);
+        });
+        if (newImage) {
+          setGallery((prev) => [newImage, ...prev]);
+        }
       }
     }
   }, [color]);
+  //Dodati useEffect za proizvod i proizvod u info/variant i u galeriju
+  useEffect(() => {
+    if (proizvod !== null) {
+      setGallery(filteredImages);
+      if(color) {
+        const newImage = productGallery?.find((item) => 
+          item?.variant_key?.includes(proizvod) && item?.variant_key?.includes(color)
+        );
+        if (newImage) {
+          setGallery((prev) => [newImage, ...prev]);
+        }
+      } else {
+        const newImage = productGallery?.find((item) => {
+          return item?.variant_key?.includes(proizvod);
+        });
+        if (newImage) {
+          setGallery((prev) => [newImage, ...prev]);
+        }
+      }
+
+    }
+  }, [proizvod]);
 
   useEffect(() => {
     if (product) {
@@ -63,7 +95,7 @@ const ProductDetails = ({
         <>/</>
         {(breadcrumbs?.steps ?? [])?.map((breadcrumb, index, arr) => {
           return (
-            <div className="flex items-center gap-2">
+            <div className="flex items-center gap-2" key={index}>
               <Link
                 href={
                   index === arr?.length - 1
@@ -87,6 +119,7 @@ const ProductDetails = ({
         <ProductGallery
           productGallery={gallery}
           color={color}
+          proizvod={proizvod}
           loading={loading}
           setLoading={setLoading}
           product={product}
@@ -99,6 +132,8 @@ const ProductDetails = ({
           path={path}
           color={color}
           setColor={setColor}
+          proizvod={proizvod}
+          setProizvod={setProizvod}
           breadcrumbs={breadcrumbs}
           specification={specification}
           declaration={declaration}

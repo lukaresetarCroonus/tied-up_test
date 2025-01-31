@@ -36,6 +36,8 @@ const ProductInfo = ({
   setColor,
   breadcrumbs,
   color,
+  proizvod,
+  setProizvod,
   canonical,
   id,
   gallery
@@ -100,12 +102,19 @@ const ProductInfo = ({
   };
 
   const [selectedColor, setSelectedColor] = useState(null);
+  const [selectedProizvod, setSelectedProizvod] = useState(null);
 
   useEffect(() => {
     if (selectedColor !== null) {
       setColor(selectedColor);
     }
   }, [selectedColor]);
+
+  useEffect(() => {
+    if (selectedProizvod !== null) {
+      setProizvod(selectedProizvod);
+    }
+  }, [selectedProizvod]);
 
   const [count, setCount] = useState(1);
 
@@ -442,6 +451,7 @@ const ProductInfo = ({
                   setSelectedOptions={setSelectedOptions}
                   updateProductVariant={updateProductVariant}
                   setSelectedColor={setSelectedColor}
+                  setSelectedProizvod={setSelectedProizvod}
                   productVariant={productVariant}
                   setVariant={false}
                   setVariantOnOff={setVariantOnOff}
