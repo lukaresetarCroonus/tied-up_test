@@ -45,6 +45,7 @@ const ProductInfo = ({
   const [productVariant, setProductVariant] = useState(null);
   const [selectedOptions, setSelectedOptions] = useState(null);
   const [tempError, setTempError] = useState(null);
+  const [isAddable,setIsAddable] = useState(false);
 
   useEffect(() => {
     if (window.scrollY > 0) {
@@ -237,7 +238,8 @@ const ProductInfo = ({
         }
         break;
       case "variant":
-        if (productVariant?.id) {
+        if (isAddable) {
+          setTempError(null);
           let is_addable = checkIsAddable(
             productVariant?.price,
             productVariant?.inventory
@@ -452,6 +454,7 @@ const ProductInfo = ({
                   updateProductVariant={updateProductVariant}
                   setSelectedColor={setSelectedColor}
                   setSelectedProizvod={setSelectedProizvod}
+                  setIsAddable={setIsAddable}
                   productVariant={productVariant}
                   setVariant={false}
                   setVariantOnOff={setVariantOnOff}

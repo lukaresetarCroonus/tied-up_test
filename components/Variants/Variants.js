@@ -6,17 +6,11 @@ import { useState, useEffect } from "react";
 export default function Variants({
   product,
   updateProductVariant,
-  updateProductPrice,
-  productSlug,
-  slug,
   handleURLChange,
-  firstVariantOption,
   setSelectedColor,
   setSelectedProizvod,
-  productVariant,
-  setVariant,
-  setVariantOnOff,
   setSelectedOptions,
+  setIsAddable
 }) {
   const variant_options = product?.data?.variant_options; // Array of variant options
   const variant_items = product?.data?.variant_items; // Array of product variants
@@ -62,10 +56,12 @@ export default function Variants({
     } else {
       newSelected.push({ attribute_key, value_key }); // Add new option
     }
-    console.log('a',attribute_key);
-    console.log('v',value_key);
     setSelected(newSelected);
+    console.log('n',newSelected);
     handleSpecificUpdates(attribute_key, value_key);
+    if(newSelected.length === variant_options.length) {
+      setIsAddable(true);
+    }
   };
 
   // Handle updates for color and product
@@ -76,6 +72,16 @@ export default function Variants({
     if (attribute_key === "1-proizvod") {
       setSelectedProizvod(value_key);
     }
+  };
+
+  const filterOptions = (attributeKeyToRemove) => {
+    // Filter out the options where the attribute_key is equal to the given key
+    const updatedSelectedOptions = selected.filter(
+      (option) => option.attribute_key !== attributeKeyToRemove
+    );
+  
+    // Update the state with the filtered options
+    setSelected(updatedSelectedOptions);
   };
 
   // Create variant options for display (e.g., "select" dropdown)
@@ -95,10 +101,14 @@ export default function Variants({
           className="focus:ring-0 focus:border-black max-sm:p-2 py-1 max-sm:flex max-sm:justify-end border-[1px] border-black md:w-[60%] max-md:w-full"
           onChange={(e) => {
             const value = e.target.value;
+            const name = e.target.name;
+            // console.log('na',name);
             if (value !== "none") {
               onVariantOptionChange(item.attribute.key, value);
             } else {
-              setSelected([]);
+              // setSelected([]);
+              setIsAddable(false);
+              filterOptions(name);
               updateProductVariant(null); // Reset product variant if no option is selected
               handleURLChange(product?.data?.item?.slug); // Reset URL if no option is selected
             }
