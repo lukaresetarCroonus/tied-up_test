@@ -19,12 +19,11 @@ export const TemplateOne = ({
   const [swiper, setSwiper] = useState(null);
 
   useEffect(() => {
-    if (typeof window !== "undefined") {
       const viewed = localStorage.getItem("viewed_products");
       if (viewed) {
         setProducts(JSON.parse(viewed));
       }
-    }
+    
   }, []);
 
   return (
