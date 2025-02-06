@@ -22,7 +22,6 @@ const CheckoutItems = ({
   slug_path,
   inventory,
   className,
-  key,
   refreshCart,
   quantity,
   refreshSummary,
@@ -49,7 +48,7 @@ const CheckoutItems = ({
 
   return (
     <>
-      <div key={key} className={`relative grid grid-cols-4 gap-5`}>
+      <div className={`relative grid grid-cols-4 gap-5`}>
         <i
           className={`fas fa-times absolute right-2 top-2 z-10 cursor-pointer ${
             isClosed && !inventory?.inventory_defined && "text-white"

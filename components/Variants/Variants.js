@@ -101,7 +101,6 @@ export default function Variants({
           onChange={(e) => {
             const value = e.target.value;
             const name = e.target.name;
-            // console.log('na',name);
             if (value !== "none") {
               onVariantOptionChange(item.attribute.key, value);
             } else {

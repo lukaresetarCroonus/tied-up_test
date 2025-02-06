@@ -21,9 +21,8 @@ const ProductDetails = ({
   canonical,
   id,
 }) => {
-  const [rawGallery, setRawGallery] = useState(productGallery);
+  // const [rawGallery, setRawGallery] = useState(productGallery);
   const [loading, setLoading] = useState(false);
-
   const filteredImages = productGallery?.filter((image) => {
     return !image?.variant_key;
   });
