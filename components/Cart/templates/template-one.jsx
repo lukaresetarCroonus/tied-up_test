@@ -19,11 +19,11 @@ export const TemplateOne = ({
   const [swiper, setSwiper] = useState(null);
 
   useEffect(() => {
-    let viewed_products = localStorage.getItem("tied_up_viewed_products");
-
-    if (viewed_products) {
-      viewed_products = JSON.parse(viewed_products);
-      setProducts(viewed_products);
+    if (typeof window !== "undefined") {
+      const viewed = localStorage.getItem("viewed_products");
+      if (viewed) {
+        setProducts(JSON.parse(viewed));
+      }
     }
   }, []);
 
@@ -40,7 +40,7 @@ export const TemplateOne = ({
               {children}
             </div>
           </div>
-          {/* {products?.length > 0 && (
+          {products?.length > 0 && (
             <div className="max-sm:mt-[1rem] mt-[4rem] relative max-xl:mx-auto max-xl:w-[95%] xl:mx-[5rem]">
               <h2 className="text-2xl font-bold mb-10">
                 Gledali ste i ove modele
@@ -115,7 +115,7 @@ export const TemplateOne = ({
                 </div>
               )}
             </div>
-          )} */}
+          )}
         </>
       </div>
     </GoogleReCaptchaProvider>
