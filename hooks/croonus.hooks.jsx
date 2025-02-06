@@ -168,41 +168,37 @@ export const useRemoveFromCart = () => {
   return useMutation({
     mutationKey: ["removeFromCart"],
     mutationFn: async ({ id }) => {
-      return await POST(`/cart`, {
+      const res = await POST(`/cart`, {
         id_product: +id,
         quantity: 0,
         id_product_parent: null,
         description: null,
         status: null,
         quantity_calc_type: "calc",
-      }).then((res) => {
-        switch (res?.code) {
-          case 200:
-            mutateCart();
-            toast.success("Uspešno obrisano iz korpe.", {
-              position: "top-center",
-              autoClose: 2000,
-              hideProgressBar: true,
-              closeOnClick: true,
-              pauseOnHover: true,
-              draggable: true,
-            });
-            break;
-          default:
-            toast.error(
-              res?.payload?.message ?? "Greška prilikom brisanja iz korpe.",
-              {
-                position: "top-center",
-                autoClose: 2000,
-                hideProgressBar: true,
-                closeOnClick: true,
-                pauseOnHover: true,
-                draggable: true,
-              }
-            );
-            break;
-        }
-      });
+      })
+      if (res?.code === 200) {
+        mutateCart(); // Optional: Can be separated to avoid blocking
+        toast.success("Uspešno obrisano iz korpe.", {
+          position: "top-center",
+          autoClose: 2000,
+          hideProgressBar: true,
+          closeOnClick: true,
+          pauseOnHover: true,
+          draggable: true,
+        });
+      } else {
+        toast.error(
+          res?.payload?.message ?? "Greška prilikom brisanja iz korpe.",
+          {
+            position: "top-center",
+            autoClose: 2000,
+            hideProgressBar: true,
+            closeOnClick: true,
+            pauseOnHover: true,
+            draggable: true,
+          }
+        )
+      }
     },
     refetchOnWindowFocus: false,
   });
