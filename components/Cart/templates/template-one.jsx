@@ -7,10 +7,6 @@ import { Suspense, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { icons } from "@/_lib/icons";
 import { Thumb } from "@/_components/shared";
-import { Lazy, Pagination } from "swiper"; // Import Lazy module
-
-import "swiper/css";
-import "swiper/css/pagination";
 
 export const TemplateOne = ({
   verifyCaptcha,
@@ -44,7 +40,7 @@ export const TemplateOne = ({
               {children}
             </div>
           </div>
-          {products?.length > 0 && (
+          {/* {products?.length > 0 && (
             <div className="max-sm:mt-[1rem] mt-[4rem] relative max-xl:mx-auto max-xl:w-[95%] xl:mx-[5rem]">
               <h2 className="text-2xl font-bold mb-10">
                 Gledali ste i ove modele
@@ -62,7 +58,6 @@ export const TemplateOne = ({
                 </div>
               )}
               <Swiper
-                modules={[Lazy, Pagination]} // Add Lazy module here
                 rewind
                 slidesPerView={1.2}
                 breakpoints={{
@@ -78,7 +73,6 @@ export const TemplateOne = ({
                 }}
                 spaceBetween={20}
                 onSwiper={(swiper) => setSwiper(swiper)}
-                lazy={{ loadPrevNext: true }}  // Enable lazy loading for Swiper
               >
                 {(products ?? [])?.map((item) => {
                   if (item) {
@@ -121,7 +115,7 @@ export const TemplateOne = ({
                 </div>
               )}
             </div>
-          )}
+          )} */}
         </>
       </div>
     </GoogleReCaptchaProvider>
