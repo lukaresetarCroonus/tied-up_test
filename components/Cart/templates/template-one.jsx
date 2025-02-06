@@ -7,6 +7,10 @@ import { Suspense, useEffect, useState } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { icons } from "@/_lib/icons";
 import { Thumb } from "@/_components/shared";
+import { Lazy, Pagination } from "swiper"; // Import Lazy module
+
+import "swiper/css";
+import "swiper/css/pagination";
 
 export const TemplateOne = ({
   verifyCaptcha,
@@ -58,6 +62,7 @@ export const TemplateOne = ({
                 </div>
               )}
               <Swiper
+                modules={[Lazy, Pagination]} // Add Lazy module here
                 rewind
                 slidesPerView={1.2}
                 breakpoints={{
@@ -73,6 +78,7 @@ export const TemplateOne = ({
                 }}
                 spaceBetween={20}
                 onSwiper={(swiper) => setSwiper(swiper)}
+                lazy={{ loadPrevNext: true }}  // Enable lazy loading for Swiper
               >
                 {(products ?? [])?.map((item) => {
                   if (item) {
@@ -89,7 +95,6 @@ export const TemplateOne = ({
                         <SwiperSlide
                           key={`viewed-slide-${id}`}
                           className={`!h-auto`}
-                          lazy
                         >
                           <Thumb
                             id={id}
