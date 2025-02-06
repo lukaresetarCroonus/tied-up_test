@@ -40,7 +40,7 @@ export const TemplateOne = ({
               {children}
             </div>
           </div>
-          {/* {products?.length > 0 && (
+          {products?.length > 0 && (
             <div className="max-sm:mt-[1rem] mt-[4rem] relative max-xl:mx-auto max-xl:w-[95%] xl:mx-[5rem]">
               <h2 className="text-2xl font-bold mb-10">
                 Gledali ste i ove modele
@@ -89,6 +89,7 @@ export const TemplateOne = ({
                         <SwiperSlide
                           key={`viewed-slide-${id}`}
                           className={`!h-auto`}
+                          lazy
                         >
                           <Thumb
                             id={id}
@@ -115,7 +116,7 @@ export const TemplateOne = ({
                 </div>
               )}
             </div>
-          )} */}
+          )}
         </>
       </div>
     </GoogleReCaptchaProvider>
